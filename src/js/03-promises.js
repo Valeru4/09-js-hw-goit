@@ -32,25 +32,23 @@ function createPromise(position, delay) {
 function createPromises(event) {
     event.preventDefault()
   
-  const delay = Number(ref.delayInput.value);
-  const step = Number(ref.stepInput.value);
-  const amount = Number(ref.amountInput.value);
+  let delay = Number(ref.delayInput.value);
+  let step = Number(ref.stepInput.value);
+  let amount = Number(ref.amountInput.value);
 
-  const promises = [];
 
-  for (let i = 1; i <= amount; i+1) {
+  for (let i = 1; i <= amount; i+=1) {
     const currentDelay = delay + (i-1)*step;
-    promises.push(createPromise(i, currentDelay));
+        createPromise(i, currentDelay).then(onSuccess).catch(onError);
   }
 
-  promises.forEach((promise) => {
-    promise
-      .then(({ position, delay }) => {
+  function onSuccess({position, delay}){
         Notiflix.Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
-      })
-      .catch(({ position, delay }) => {
+  }
+  
+  function onError({ position, delay }) {
         Notiflix.Notify.failure(`Rejected promise ${position} in ${delay}ms`);
-      });
-  });
-}
+      }
+  }
+
 

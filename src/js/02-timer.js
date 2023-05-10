@@ -5,14 +5,14 @@ const myInput = document.querySelector("#datetime-picker");
 const inputBtn = document.querySelector('button[data-start]');
 
 inputBtn.disabled = true;
-
+let selectedDate = null
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    const selectedDate = selectedDates[0]
+   selectedDate = selectedDates[0]
     const currentDate = new Date()
     const endedDate = selectedDate.getTime() > currentDate.getTime()
     if (!endedDate) {
