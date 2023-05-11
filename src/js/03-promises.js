@@ -36,7 +36,7 @@ function createPromises(event) {
   let step = Number(ref.stepInput.value);
   let amount = Number(ref.amountInput.value);
 
-    if (delay <= 0 || step <= 0 || amount <= 0) {
+    if (delay < 0 || step < 0 || amount <= 0) {
       alert('Неправильный формат данных')
     } else {  for (let i = 1; i <= amount; i += 1) {
         const currentDelay = delay + (i - 1) * step;
