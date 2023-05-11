@@ -36,11 +36,15 @@ function createPromises(event) {
   let step = Number(ref.stepInput.value);
   let amount = Number(ref.amountInput.value);
 
+    if (delay <= 0 || step <= 0 || amount <= 0) {
+      alert('Неправильный формат данных')
+    } else {  for (let i = 1; i <= amount; i += 1) {
+        const currentDelay = delay + (i - 1) * step;
+      createPromise(i, currentDelay).then(onSuccess).catch(onError);
+    
+  }}
 
-  for (let i = 1; i <= amount; i+=1) {
-    const currentDelay = delay + (i-1)*step;
-        createPromise(i, currentDelay).then(onSuccess).catch(onError);
-  }
+
 
   function onSuccess({position, delay}){
         Notiflix.Notify.success(`Fulfilled promise ${position} in ${delay}ms`);

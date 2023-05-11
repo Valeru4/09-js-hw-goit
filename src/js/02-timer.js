@@ -3,9 +3,12 @@ import "flatpickr/dist/flatpickr.min.css";
 
 const myInput = document.querySelector("#datetime-picker");
 const inputBtn = document.querySelector('button[data-start]');
+const resetBtn = document.querySelector('button[data-end]');
+
 
 inputBtn.disabled = true;
-let selectedDate = null
+let selectedDate = null;
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -19,6 +22,7 @@ const options = {
       window.alert('Please choose a date in the future')
     } else {
       inputBtn.disabled = false;
+      myInput.disabled = true;
     }
   },
 };
@@ -52,6 +56,17 @@ inputBtn.addEventListener('click', () => {
   countdown(); // initial call to display the correct time on start
   intervalId = setInterval(countdown, 1000);
 });
+
+resetBtn.addEventListener('click', () => {
+  clearInterval(intervalId);
+  inputBtn.disabled = true;
+  myInput.disabled = false;
+  selectedDate = null;
+  document.querySelector('[data-days]').textContent = '00';
+  document.querySelector('[data-hours]').textContent = '00';
+  document.querySelector('[data-minutes]').textContent = '00';
+  document.querySelector('[data-seconds]').textContent = '00';
+})
 
 function formatTime(num) {
   return num.toString().padStart(2, '0');
